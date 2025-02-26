@@ -5,3 +5,24 @@
 vim.opt.relativenumber = false
 vim.opt.wrap = true
 vim.opt.scrolloff = 10
+
+-- Set default clipboard to OSC 52 to support ZELLIJ (temporary fix)
+if vim.env.ZELLIJ then
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = function()
+        vim.notify("Paste is disabled for security reasons, use system paste function instead.", vim.log.levels.WARN)
+        return { "" }
+      end,
+      ["*"] = function()
+        vim.notify("Paste is disabled for security reasons, use system paste function instead.", vim.log.levels.WARN)
+        return { "" }
+      end,
+    },
+  }
+end
