@@ -3,11 +3,11 @@
 -- Add any additional options here
 
 vim.opt.relativenumber = false
-vim.opt.wrap = true
 vim.opt.scrolloff = 10
+vim.opt.clipboard = ""
 
--- Customized OSC 52 for supporting Zellij (temporary fix)
-if vim.env.ZELLIJ then
+-- Customized OSC 52 for supporting remote Zellij (temporary fix)
+if vim.env.SSH_TTV and vim.env.ZELLIJ then
   vim.g.clipboard = {
     name = "Custom OSC 52",
     copy = {
