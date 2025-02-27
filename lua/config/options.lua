@@ -6,22 +6,26 @@ vim.opt.relativenumber = false
 vim.opt.wrap = true
 vim.opt.scrolloff = 10
 
--- Clipboard support for Zellij (temporary fix)
-if (vim.env.SSH_CONNECTION or vim.env_SSH_CLIENT) and vim.env.ZELLIJ then
+-- Customized OSC 52 for supporting remote Zellij (temporary fix)
+if (vim.env.SSH_CONNECTION or vim.env_SSH_CLIENT) or vim.env.ZELLIJ then
   vim.g.clipboard = {
     name = "Custom OSC 52",
     copy = {
-      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+      ["+"] = function(lines)
+        require("vim.ui.clipboard.osc52").copy("+")(lines)
+        vim.fn.setreg('"', table.concat(lines, "\n"))
+      end,
+      ["*"] = function(lines)
+        require("vim.ui.clipboard.osc52").copy("*")(lines)
+        vim.fn.setreg('"', table.concat(lines, "\n"))
+      end,
     },
     paste = {
-      ["+"] = function(lines, phase)
-        -- vim.notify("Paste is disabled for security reasons, use system paste function instead.", vim.log.levels.WARN)
+      ["+"] = function()
         local content = vim.fn.getreg('"')
         return vim.split(content, "\n")
       end,
-      ["*"] = function(lines, phase)
-        -- vim.notify("Paste is disabled for security reasons, use system paste function instead.", vim.log.levels.WARN)
+      ["*"] = function()
         local content = vim.fn.getreg('"')
         return vim.split(content, "\n")
       end,
