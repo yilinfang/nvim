@@ -10,10 +10,6 @@ return {
           },
         },
       },
-      keymap = {
-        preset = "super-tab",
-        ["<Right>"] = { "accept", "fallback" },
-      },
     },
   },
 }
