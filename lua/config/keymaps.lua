@@ -3,4 +3,7 @@
 -- Add any additional keymaps here
 
 -- Copy to system clipboard +
-vim.keymap.set({ "v" }, "cs", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set({ "v" }, "c=", '"+y', { desc = "Copy to system clipboard '\"='" })
+
+-- Copy to system clipboard *
+vim.keymap.set({ "v" }, "c*", '"+y', { desc = "Copy to system clipboard '\"*'" })

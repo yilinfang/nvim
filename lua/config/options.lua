@@ -4,29 +4,23 @@
 
 vim.opt.relativenumber = false
 vim.opt.scrolloff = 10
-vim.opt.clipboard = ""
 
--- Customized OSC 52 for supporting remote Zellij (temporary fix)
-if vim.env.SSH_TTY and vim.env.ZELLIJ then
+-- Disable paster from systerm clipboard when throught OSC 52
+-- Fix the yanky performance issue when using OSC 52
+if vim.env.SSH_TTY then
   vim.g.clipboard = {
-    name = "Custom OSC 52",
+    name = "Customized OSC 52",
     copy = {
-      ["+"] = function(lines)
-        require("vim.ui.clipboard.osc52").copy("+")(lines)
-        vim.fn.setreg('"', table.concat(lines, "\n"))
-      end,
-      ["*"] = function(lines)
-        require("vim.ui.clipboard.osc52").copy("*")(lines)
-        vim.fn.setreg('"', table.concat(lines, "\n"))
-      end,
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
     },
     paste = {
       ["+"] = function()
-        local content = vim.fn.getreg('"')
+        local content = vim.fn.getreg("")
         return vim.split(content, "\n")
       end,
       ["*"] = function()
-        local content = vim.fn.getreg('"')
+        local content = vim.fn.getreg("")
         return vim.split(content, "\n")
       end,
     },
