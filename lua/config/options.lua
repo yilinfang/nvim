@@ -5,6 +5,8 @@
 vim.opt.relativenumber = false
 vim.opt.scrolloff = 10
 
+vim.opt.clipboard = ""
+
 -- Disable paster from systerm clipboard when throught OSC 52
 -- Fix the yanky performance issue when using OSC 52
 if vim.env.SSH_TTY then
