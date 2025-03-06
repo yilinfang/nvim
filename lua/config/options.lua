@@ -28,3 +28,5 @@ if vim.env.SSH_TTY then
     },
   }
 end
+
+vim.g.ai_cmp = false
