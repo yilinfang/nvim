@@ -9,4 +9,4 @@ vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Selcet all", noremap = true })
 vim.keymap.set({ "v" }, "cs", '"+y', { desc = "Copy to system clipboard '\"='" })
 
 -- Copilot authentification
-vim.keymap.set("n", "<leader>coa", ":Copilot auth<CR>", { desc = "Copilot authentification" })
+-- vim.keymap.set("n", "<leader>coa", ":Copilot auth<CR>", { desc = "Copilot authentification" })
