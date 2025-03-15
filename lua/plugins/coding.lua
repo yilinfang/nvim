@@ -6,7 +6,7 @@ return {
         -- https://cmp.saghen.dev/configuration/completion.html#list
         list = {
           selection = {
-            preselect = true,
+            preselect = false,
             auto_insert = false,
           },
         },
