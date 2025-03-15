@@ -27,5 +27,13 @@ if vim.env.SSH_TTY then
   }
 end
 
+-- Disable New Line Comment
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    vim.opt.formatoptions:remove({ "c", "r", "o" })
+  end,
+  desc = "Disable New Line Comment",
+})
+
 -- VSCode like Copilot experience
--- vim.g.ai_cmp = false
+vim.g.ai_cmp = false
