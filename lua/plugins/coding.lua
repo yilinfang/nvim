@@ -10,6 +10,10 @@ return {
             auto_insert = false,
           },
         },
+        trigger = {
+          -- https://cmp.saghen.dev/configuration/keymap.html#super-tab
+          show_in_snippet = false,
+        },
       },
       -- https://cmp.saghen.dev/configuration/keymap.html#super-tab
       keymap = {
