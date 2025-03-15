@@ -1,3 +1,9 @@
 # nvim
 
 My neovim settings based on [LazyVim](https://github.com/LazyVim/LazyVim).
+
+To keep the secrets (github-copilot token, etc) safe, use following command to secure the secrets:
+
+```bash
+chmod 700 ~/.config/nvim/
+```
