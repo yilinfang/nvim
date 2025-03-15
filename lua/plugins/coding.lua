@@ -14,6 +14,8 @@ return {
       -- https://cmp.saghen.dev/configuration/keymap.html#super-tab
       keymap = {
         preset = "super-tab",
+        ["<Right>"] = { "accept", "fallback" },
+        ["<Enter>"] = { "accept", "fallback" },
       },
     },
   },
