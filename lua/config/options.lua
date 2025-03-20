@@ -27,5 +27,5 @@ if vim.env.SSH_TTY then
   }
 end
 
--- VSCode like Copilot experience
-vim.g.ai_cmp = false
+-- -- VSCode like Copilot experience
+-- vim.g.ai_cmp = false
