@@ -1,3 +1,3 @@
 # nvim
 
-My neovim settings based on [LazyVim](https://github.com/LazyVim/LazyVim).
+My Neovim settings based on [LazyVim](https://github.com/LazyVim/LazyVim).
