@@ -9,4 +9,14 @@ return {
       },
     },
   },
+  {
+    "folke/trouble.nvim",
+    opts = {
+      win = {
+        size = {
+          width = 60,
+        },
+      },
+    },
+  },
 }
