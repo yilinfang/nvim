@@ -31,5 +31,5 @@ end
 -- VSCode like Copilot experience
 vim.g.ai_cmp = false
 
--- Set basedpyright as default python lsp
-vim.g.lazyvim_python_lsp = "basedpyright"
+-- -- Set basedpyright as default python lsp
+-- vim.g.lazyvim_python_lsp = "basedpyright"
