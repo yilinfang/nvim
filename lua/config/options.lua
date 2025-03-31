@@ -2,6 +2,7 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+-- General options
 vim.opt.scrolloff = 10
 vim.opt.clipboard = ""
 
@@ -29,3 +30,6 @@ end
 
 -- VSCode like Copilot experience
 vim.g.ai_cmp = false
+
+-- Set basedpyright as default python lsp
+vim.g.lazyvim_python_lsp = "basedpyright"
