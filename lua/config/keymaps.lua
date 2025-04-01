@@ -3,7 +3,7 @@
 -- Add any additional keymaps here
 
 -- Select all
-vim.keymap.set({ "n", "v" }, "<C-S-a>", "<Esc>ggVG", { desc = "Select all" })
+vim.keymap.set({ "n", "v" }, "<M-A>", "<Esc>ggVG", { desc = "Select all" })
 
 -- Copy to system clipboard +
-vim.keymap.set({ "v" }, "<C-S-y>", '"+y', { desc = "Copy to system clipboard '\"+'" })
+vim.keymap.set({ "v" }, "<M-Y>", '"+y', { desc = "Copy to system clipboard '\"+'" })
