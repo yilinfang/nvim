@@ -4,12 +4,12 @@ return {
     opts = {
       suggestion = {
         keymap = {
-          accept = "<M-Y>",
-          accept_word = "<M-W>",
-          accept_line = "<M-L>",
-          next = "<M-N>",
-          prev = "<M-P>",
-          dismiss = "<M-D>",
+          accept = "<M-S-y>",
+          accept_word = "<M-S-w>",
+          accept_line = "<M-S-l>",
+          next = "<M-S-n>",
+          prev = "<M-S-p>",
+          dismiss = "<M-S-d>",
         },
       },
     },
