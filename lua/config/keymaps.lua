@@ -6,4 +6,4 @@
 vim.keymap.set({ "n", "v" }, "<M-A>", "<Esc>ggVG", { desc = "Select all" })
 
 -- Copy to system clipboard +
-vim.keymap.set({ "v" }, "<M-Y>", '"+y', { desc = "Copy to system clipboard '\"+'" })
+vim.keymap.set({ "v" }, "<M-C>", '"+y', { desc = "Copy to system clipboard '\"+'" })
