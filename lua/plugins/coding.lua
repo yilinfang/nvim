@@ -27,9 +27,9 @@ return {
     "hrsh7th/nvim-cmp",
     opts = {
       mapping = {
-        ["<Tab>"] = {},
-        ["<S-Tab>"] = {},
-        ["<C-Space>"] = {},
+        ["<Tab>"] = nil,
+        ["<S-Tab>"] = nil,
+        ["<C-Space>"] = nil,
       },
     },
   },
