@@ -6,7 +6,7 @@
 vim.keymap.set({ "n", "v" }, "<M-S-a>", "<Esc>ggVG", { desc = "Select all" })
 
 -- Yank to system clipboard
-vim.keymap.set({ "v" }, "<M-S-c>", '"+y', { desc = "Yank to system clipboard '\"+'" })
+vim.keymap.set({ "v" }, "<M-S-y>", '"+y', { desc = "Yank to system clipboard '\"+'" })
 
 -- -- Map ctrl+shift+h/j/k/l to move between windows
 -- vim.keymap.set({ "n", "t" }, "<C-S-h>", "<C-W>h", { desc = "Move to left window" })
