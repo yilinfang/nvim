@@ -19,19 +19,19 @@ return {
   --     },
   --   },
   -- },
-  {
-    "echasnovski/mini.move",
-    opts = {
-      mappings = {
-        left = "<M-S-h>",
-        down = "<M-S-j>",
-        up = "<M-S-k>",
-        right = "<M-S-l>",
-        line_left = "<M-S-h>",
-        line_down = "<M-S-j>",
-        line_up = "<M-S-k>",
-        line_right = "<M-S-l>",
-      },
-    },
-  },
+  -- {
+  --   "echasnovski/mini.move",
+  --   opts = {
+  --     mappings = {
+  --       left = "<M-S-h>",
+  --       down = "<M-S-j>",
+  --       up = "<M-S-k>",
+  --       right = "<M-S-l>",
+  --       line_left = "<M-S-h>",
+  --       line_down = "<M-S-j>",
+  --       line_up = "<M-S-k>",
+  --       line_right = "<M-S-l>",
+  --     },
+  --   },
+  -- },
 }
