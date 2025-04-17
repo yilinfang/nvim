@@ -7,4 +7,8 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     enabled = false,
   },
+  {
+    "MagicDuck/grug-far.nvim",
+    enabled = false,
+  },
 }
