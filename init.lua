@@ -786,6 +786,35 @@ require('lazy').setup({
     opts = {},
   },
 
+  { -- HACK: render-markdown.nvim
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
+    ft = { 'markdown', 'norg', 'rmd', 'org', 'codecompanion' },
+    opts = {
+      code = {
+        sign = false,
+        width = 'block',
+        right_pad = 1,
+      },
+      heading = {
+        sign = false,
+        icons = {},
+      },
+      checkbox = {
+        enabled = false,
+      },
+      completions = {
+        lsp = { enabled = true },
+      },
+    },
+    config = function(_, opts)
+      require('render-markdown').setup(opts)
+      vim.keymap.set('n', '<leader>tm', function()
+        require('render-markdown').buf_toggle()
+      end, { desc = '[T]oggle Render [M]arkdown' })
+    end,
+  },
+
   { -- HACK: copilot.lua
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
