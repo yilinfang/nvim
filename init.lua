@@ -84,8 +84,17 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 vim.o.confirm = true
 
--- HACK: Wrap lines
-vim.o.wrap = true
+-- HACK: Disable wrap lines
+vim.o.wrap = false
+vim.o.linebreak = true
+
+-- HACK: Extra Indent Settings
+vim.o.expandtab = true
+vim.o.preserveindent = true
+vim.o.shiftround = true
+vim.o.shiftwidth = 2
+vim.o.smartindent = true
+vim.o.tabstop = 2
 
 -- HACK: Folding
 vim.o.smoothscroll = true
@@ -157,7 +166,13 @@ rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
 require('lazy').setup({
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  { -- Detect tabstop and shiftwidth automatically
+    'NMAC427/guess-indent.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = function()
+      require('guess-indent').setup {}
+    end,
+  },
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
