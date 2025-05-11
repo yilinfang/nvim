@@ -289,8 +289,10 @@ require('lazy').setup({
   },
 
   -- LSP Plugins
-  {
+  { -- HACK: Mason.nvim
     'mason-org/mason.nvim',
+    cmd = 'Mason',
+    build = ':MasonUpdate',
     config = function()
       require('mason').setup()
     end,
@@ -316,6 +318,7 @@ require('lazy').setup({
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
+      'mason.nvim',
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -481,15 +484,21 @@ require('lazy').setup({
       local servers = { -- HACK: LSP servers
         -- Lua
         lua_ls = {
+          -- cmd = { ... },
+          -- filetypes = { ... },
+          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
                 callSnippet = 'Replace',
               },
+              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+              -- diagnostics = { disable = { 'missing-fields' } },
             },
           },
         },
 
+        -- HACK: LSP servers
         -- Ruff
         ruff = {
           cmd_env = { RUFF_TRACE = 'messages' },
@@ -570,8 +579,8 @@ require('lazy').setup({
         end
       end,
       formatters_by_ft = {
-        -- HACK: formatters
         lua = { 'stylua' },
+        -- HACK: formatters
         css = { 'prettier' },
         fish = { 'fish_indent' },
         html = { 'prettier' },
