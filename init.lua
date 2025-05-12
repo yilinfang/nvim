@@ -807,9 +807,6 @@ require('lazy').setup({
         sign = false,
         icons = {},
       },
-      checkbox = {
-        enabled = false,
-      },
       completions = {
         lsp = { enabled = true },
       },
