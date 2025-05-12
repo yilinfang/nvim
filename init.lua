@@ -160,18 +160,16 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   { -- Detect tabstop and shiftwidth automatically
     'NMAC427/guess-indent.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('guess-indent').setup {}
-      vim.keymap.set('n', '<leader>gi', function()
+      vim.keymap.set('n', '<leader>g', function()
         vim.cmd 'GuessIndent'
-      end, { desc = '[G]uess [I]ndent' })
+      end, { desc = '[G]uess Indent' })
     end,
   },
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VeryLazy',
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
       -- this setting is independent of vim.opt.timeoutlen
@@ -284,15 +282,6 @@ require('lazy').setup({
   },
 
   -- LSP Plugins
-  { -- HACK: Mason.nvim
-    'mason-org/mason.nvim',
-    cmd = 'Mason',
-    build = ':MasonUpdate',
-    config = function()
-      require('mason').setup()
-    end,
-  },
-
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
@@ -309,11 +298,11 @@ require('lazy').setup({
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
-    event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' }, -- HACK: Sets the loading event of lspconfig to 'BufReadPost', 'BufWritePost', 'BufNewFile' aka 'LazyFile'
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
-      'mason.nvim',
+      -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
+      { 'mason-org/mason.nvim', opts = {} },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -476,7 +465,7 @@ require('lazy').setup({
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       -- Enable the following language servers
-      local servers = { -- HACK: LSP servers
+      local servers = {
         -- Lua
         lua_ls = {
           -- cmd = { ... },
@@ -545,7 +534,6 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
       {
@@ -599,8 +587,6 @@ require('lazy').setup({
 
   { -- Autocompletion
     'saghen/blink.cmp',
-    -- event = 'VimEnter'
-    event = 'InsertEnter', -- HACK: Sets the loading event of blink.cmp to 'InsertEnter'
     version = '1.*',
     dependencies = {
       -- Snippet Engine
@@ -660,7 +646,7 @@ require('lazy').setup({
 
       -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
       -- which automatically downloads a prebuilt binary when enabled.
-      fuzzy = { implementation = 'lua' },
+      fuzzy = { implementation = 'prefer_rust_with_warning' }, -- HACK: Use rust fuzzy matcher for blink.cmp
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
@@ -688,7 +674,6 @@ require('lazy').setup({
   -- HACK: todo-comments
   {
     'folke/todo-comments.nvim',
-    event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       require('todo-comments').setup { signs = true }
@@ -711,7 +696,7 @@ require('lazy').setup({
       -- Simple and easy statusline.
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      statusline.setup { use_icons = true }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
@@ -743,7 +728,6 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufWritePost', 'BufNewFile', 'VeryLazy' },
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
@@ -806,7 +790,6 @@ require('lazy').setup({
 
   { -- HACK: persistence.nvim
     'folke/persistence.nvim',
-    event = 'BufReadPre',
     opts = {},
   },
 
@@ -843,7 +826,6 @@ require('lazy').setup({
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     build = ':Copilot auth',
-    event = 'InsertEnter',
     opts = {
       suggestion = {
         enabled = true,
@@ -872,4 +854,5 @@ require('lazy').setup({
   },
 })
 
+-- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
