@@ -88,14 +88,6 @@ vim.o.confirm = true
 vim.o.wrap = false
 vim.o.linebreak = true
 
--- HACK: Extra Indent Settings
-vim.o.expandtab = true
-vim.o.preserveindent = true
-vim.o.shiftround = true
-vim.o.shiftwidth = 2
-vim.o.smartindent = true
-vim.o.tabstop = 2
-
 -- HACK: Folding
 vim.o.smoothscroll = true
 vim.o.foldmethod = 'expr'
@@ -171,6 +163,9 @@ require('lazy').setup({
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
       require('guess-indent').setup {}
+      vim.keymap.set('n', '<leader>gi', function()
+        vim.cmd 'GuessIndent'
+      end, { desc = '[G]uess [I]ndent' })
     end,
   },
 
