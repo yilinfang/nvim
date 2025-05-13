@@ -850,6 +850,18 @@ require('lazy').setup({
       filetypes = {
         markdown = true,
       },
+      should_attach = function(_, bufname)
+        local exclude_patterns = {
+          '%.env$',
+          '%.dump$',
+        }
+        for _, pattern in ipairs(exclude_patterns) do
+          if string.find(bufname, pattern) then
+            return false
+          end
+        end
+        return true
+      end,
     },
   },
 }, {
