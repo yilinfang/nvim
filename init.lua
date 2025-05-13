@@ -170,6 +170,7 @@ require('lazy').setup({
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
+    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
       -- this setting is independent of vim.opt.timeoutlen
@@ -511,6 +512,7 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'shfmt', -- Required by bashls
         'shellcheck', -- Required by bashls
+        'prettierd',
         'prettier',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -534,6 +536,7 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
       {
@@ -564,11 +567,11 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- HACK: formatters
-        css = { 'prettier' },
+        css = { 'prettierd', 'prettier', stop_after_first = true },
         fish = { 'fish_indent' },
-        html = { 'prettier' },
-        javascript = { 'prettier' },
-        json = { 'prettier' },
+        html = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'prettierd', 'prettier', stop_after_first = true },
         sh = { 'shfmt' },
         python = {
           -- To fix auto-fixable lint errors.
@@ -578,15 +581,17 @@ require('lazy').setup({
           -- To organize the imports.
           'ruff_organize_imports',
         },
-        markdown = { 'prettier' },
+        markdown = { 'prettierd', 'prettier', stop_after_first = true },
+        markdown_inline = { 'prettierd', 'prettier', stop_after_first = true },
         toml = { 'taplo' },
-        yaml = { 'prettier' },
+        yaml = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
 
   { -- Autocompletion
     'saghen/blink.cmp',
+    event = 'VimEnter',
     version = '1.*',
     dependencies = {
       -- Snippet Engine
@@ -657,8 +662,9 @@ require('lazy').setup({
   {
     'craftzdog/solarized-osaka.nvim',
     lazy = false,
-    priority = 1000,
+    priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require('solarized-osaka').setup {
         transparent = true,
         styles = {
@@ -674,6 +680,7 @@ require('lazy').setup({
   -- HACK: todo-comments
   {
     'folke/todo-comments.nvim',
+    event = 'VimEnter',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       require('todo-comments').setup { signs = true }
@@ -790,6 +797,7 @@ require('lazy').setup({
 
   { -- HACK: persistence.nvim
     'folke/persistence.nvim',
+    event = 'BufReadPre', -- this will only start session saving when an actual file was opened
     opts = {},
   },
 
@@ -822,6 +830,7 @@ require('lazy').setup({
   { -- HACK: copilot.lua
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
+    event = 'InsertEnter',
     build = ':Copilot auth',
     opts = {
       suggestion = {
