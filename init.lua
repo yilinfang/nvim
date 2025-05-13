@@ -700,19 +700,6 @@ require('lazy').setup({
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       require('mini.surround').setup()
 
-      -- Simple and easy statusline.
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = true }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
       -- HACK: Other Mini modules
       require('mini.comment').setup()
       require('mini.diff').setup {
@@ -801,9 +788,29 @@ require('lazy').setup({
     opts = {},
   },
 
+  { -- HACK: lualine.nvim for statusline
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup {
+        options = {
+          theme = 'solarized-osaka',
+        },
+        sections = {
+          lualine_a = { 'mode' },
+          lualine_b = { 'branch' },
+          lualine_c = { 'diff', 'diagnostics', { 'filename', path = 1 } },
+          lualine_x = { 'filetype', { 'encoding', show_bomb = true }, { 'fileformat', icons_enabled = false }, 'filesize' },
+          lualine_y = { 'progress' },
+          lualine_z = { 'location' },
+        },
+      }
+    end,
+  },
+
   { -- HACK: render-markdown.nvim
     'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
     ft = { 'markdown', 'norg', 'rmd', 'org', 'codecompanion' },
     opts = {
       code = {
