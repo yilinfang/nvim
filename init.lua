@@ -843,16 +843,26 @@ require('lazy').setup({
 
   { -- HACK: lualine.nvim for statusline
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons', 'lewis6991/gitsigns.nvim' },
     config = function()
+      local function diff_source()
+        local gitsigns = vim.b.gitsigns_status_dict
+        if gitsigns then
+          return {
+            added = gitsigns.added,
+            modified = gitsigns.changed,
+            removed = gitsigns.removed,
+          }
+        end
+      end
       require('lualine').setup {
         options = {
           theme = 'solarized-osaka',
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = { 'branch' },
-          lualine_c = { 'diff', 'diagnostics', { 'filename', path = 1 } },
+          lualine_b = { { 'b:gitsigns_head', icon = '' } },
+          lualine_c = { { 'filename', path = 1 }, { 'diff', source = diff_source }, 'diagnostics' },
           lualine_x = { 'filetype', { 'encoding', show_bomb = true }, { 'fileformat', icons_enabled = false }, 'filesize' },
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
