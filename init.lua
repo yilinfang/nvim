@@ -22,7 +22,7 @@ vim.o.showmode = false
 
 -- HACK: Customized OSC 52
 vim.schedule(function()
-  -- Disable paster from system clipboard when through OSC 52
+  -- Disable paste from system clipboard when through SSH and OSC 52
   if vim.env.SSH_TTY then
     vim.g.clipboard = {
       name = 'Customized OSC 52',
