@@ -688,6 +688,18 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>st', function()
         Snacks.picker.todo_comments()
       end, { desc = '[S]earch [T]odos' })
+
+      -- HACK: Toggle todo-comments
+      local is_highlight_active = true -- Set the initial state to enabled
+      vim.keymap.set('n', '<leader>tt', function()
+        if is_highlight_active then
+          require('todo-comments').disable()
+          is_highlight_active = false
+        else
+          require('todo-comments').enable()
+          is_highlight_active = true
+        end
+      end, { desc = '[T]oggle [T]odo Comments Highlight' })
     end,
   },
 
