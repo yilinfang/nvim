@@ -8,7 +8,7 @@ Personal [neovim](https://neovim.io/) configuration based on [kickstart.nvim](ht
 
 ## Install Instructions
 
-> Install requires Neovim 0.9+. Always review the code before installing a configuration.
+> Install requires Neovim 0.11+. Always review the code before installing a configuration.
 
 Clone the repository and install the plugins:
 
