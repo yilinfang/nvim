@@ -756,12 +756,18 @@ require('lazy').setup({
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- Needed for mini.statusline
+    },
     config = function()
       -- Better Around/Inside textobjects
       require('mini.ai').setup { n_lines = 500 }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       require('mini.surround').setup()
+
+      -- HACK: Customized mini.statusline
+      require('mini.statusline').setup { use_icon = true }
 
       -- HACK: Other Mini modules
       require('mini.comment').setup()
@@ -841,39 +847,9 @@ require('lazy').setup({
     opts = {},
   },
 
-  { -- HACK: lualine.nvim for statusline
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons', 'lewis6991/gitsigns.nvim' },
-    config = function()
-      local function diff_source()
-        local gitsigns = vim.b.gitsigns_status_dict
-        if gitsigns then
-          return {
-            added = gitsigns.added,
-            modified = gitsigns.changed,
-            removed = gitsigns.removed,
-          }
-        end
-      end
-      require('lualine').setup {
-        options = {
-          theme = 'solarized-osaka',
-        },
-        sections = {
-          lualine_a = { 'mode' },
-          lualine_b = { { 'b:gitsigns_head', icon = '' } },
-          lualine_c = { { 'filename', path = 1 }, { 'diff', source = diff_source }, 'diagnostics' },
-          lualine_x = { 'filetype', { 'encoding', show_bomb = true }, { 'fileformat', icons_enabled = false }, 'filesize' },
-          lualine_y = { 'progress' },
-          lualine_z = { 'location' },
-        },
-      }
-    end,
-  },
-
   { -- HACK: render-markdown.nvim
     'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
     ft = { 'markdown', 'norg', 'rmd', 'org', 'codecompanion' },
     opts = {
       code = {
