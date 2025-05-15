@@ -189,6 +189,9 @@ require('lazy').setup({
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
+
+      -- HACK: Change which-key peset
+      preset = 'helix',
     },
   },
 
