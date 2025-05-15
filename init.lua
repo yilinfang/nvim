@@ -850,6 +850,25 @@ require('lazy').setup({
       end,
     },
   },
+
+  { -- HACK: aerial.nvim
+    'stevearc/aerial.nvim',
+    -- Optional dependencies
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'echasnovski/mini.nvim',
+    },
+    opts = {
+      layout = {
+        max_width = { 50, 0.3 },
+        min_width = { 20, 0.2 },
+      },
+    },
+    config = function(_, opts)
+      require('aerial').setup(opts)
+      vim.keymap.set('n', '<leader>ta', '<cmd>AerialToggle right<CR>', { desc = '[T]oggle [A]erial' })
+    end,
+  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
