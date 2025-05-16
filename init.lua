@@ -321,9 +321,6 @@ require('lazy').setup({
           },
         },
       },
-
-      -- Allows extra capabilities provided by blink.cmp
-      'saghen/blink.cmp',
     },
     config = function()
       --  This function gets run when an LSP attaches to a particular buffer.
@@ -511,13 +508,18 @@ require('lazy').setup({
         'prettierd',
         'prettier',
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
       -- HACK: Setup LSP servers with neovim 0.11+ API
       for server, config in pairs(servers) do
         vim.lsp.config(server, config)
-        vim.lsp.enable(server)
+        -- HACK: We do not need to enable the server, the mason-lspconfig plugin would enable it.
+        --  vim.lsp.enable(server)
       end
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      require('mason-lspconfig').setup {
+        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        automatic_installation = false,
+        automatic_enable = true, -- HACK: Enable all servers
+      }
     end,
   },
 
