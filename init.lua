@@ -800,7 +800,9 @@ require('lazy').setup({
       code = {
         sign = false,
         width = 'block',
-        right_pad = 1,
+        left_pad = 2,
+        right_pad = 2,
+        border = 'thick',
       },
       heading = {
         sign = false,
