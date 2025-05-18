@@ -874,6 +874,9 @@ require('lazy').setup({
     config = function(_, opts)
       require('aerial').setup(opts)
       vim.keymap.set('n', '<leader>ta', '<cmd>AerialToggle right<CR>', { desc = '[T]oggle [A]erial' })
+      vim.keymap.set('n', '<leader>sa', function()
+        require('aerial').snacks_picker()
+      end, { desc = '[S]earch [A]erial Symbol' })
     end,
   },
 }, {
