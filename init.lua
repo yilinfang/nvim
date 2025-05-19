@@ -843,19 +843,11 @@ require('lazy').setup({
       filetypes = {
         markdown = true,
       },
-      should_attach = function(_, bufname)
-        local exclude_patterns = {
-          '%.env$',
-          '%.dump$',
-        }
-        for _, pattern in ipairs(exclude_patterns) do
-          if string.find(bufname, pattern) then
-            return false
-          end
-        end
-        return true
-      end,
     },
+    config = function(_, opts)
+      require('copilot').setup(opts)
+      vim.keymap.set('n', '<leader>tc', '<cmd>Copilot toggle<cr>', { desc = '[T]oggle [C]opilot' })
+    end,
   },
 
   { -- HACK: aerial.nvim
