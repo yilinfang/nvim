@@ -20,29 +20,27 @@ vim.o.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
 
--- HACK: Customized OSC 52
-vim.schedule(function()
-  -- Disable paste from system clipboard when through SSH and OSC 52
-  if vim.env.SSH_TTY then
-    vim.g.clipboard = {
-      name = 'Customized OSC 52',
-      copy = {
-        ['+'] = require('vim.ui.clipboard.osc52').copy '+',
-        ['*'] = require('vim.ui.clipboard.osc52').copy '*',
-      },
-      paste = {
-        ['+'] = function()
-          local content = vim.fn.getreg ''
-          return vim.split(content, '\n')
-        end,
-        ['*'] = function()
-          local content = vim.fn.getreg ''
-          return vim.split(content, '\n')
-        end,
-      },
-    }
-  end
-end)
+-- HACK: Customized OSC 52 for SSH
+--  Disable paste from system clipboard
+if vim.env.SSH_TTY then
+  vim.g.clipboard = {
+    name = 'Customized OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+      ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+    },
+    paste = {
+      ['+'] = function()
+        local content = vim.fn.getreg ''
+        return vim.split(content, '\n')
+      end,
+      ['*'] = function()
+        local content = vim.fn.getreg ''
+        return vim.split(content, '\n')
+      end,
+    },
+  }
+end
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -197,12 +195,12 @@ require('lazy').setup({
 
   { -- HACK: Snacks.picker
     'folke/snacks.nvim',
-    opts = { -- HACK: Disable image preview in snacks
+    opts = {
+      picker = { enabled = true },
       image = {
-        enabled = false,
-        formats = {},
+        enabled = false, -- NOTE: Disable snacks.image
+        formats = {}, -- HACK: Disable image preview for other modules like picker
       },
-      picker = {},
     },
     keys = {
       {
@@ -743,6 +741,7 @@ require('lazy').setup({
         'python',
         'toml',
         'query',
+        'regex',
         'vim',
         'vimdoc',
         'yaml',
@@ -846,7 +845,7 @@ require('lazy').setup({
     },
     config = function(_, opts)
       require('copilot').setup(opts)
-      vim.keymap.set('n', '<leader>tc', '<cmd>Copilot toggle<cr>', { desc = '[T]oggle [C]opilot' })
+      vim.keymap.set('n', '<leader>tc', '<cmd>Copilot toggle<CR>', { desc = '[T]oggle [C]opilot' })
     end,
   },
 
