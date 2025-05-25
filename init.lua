@@ -560,14 +560,7 @@ require('lazy').setup({
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         json = { 'prettierd', 'prettier', stop_after_first = true },
         sh = { 'shfmt' },
-        python = {
-          -- To fix auto-fixable lint errors.
-          'ruff_fix',
-          -- To run the Ruff formatter.
-          'ruff_format',
-          -- To organize the imports.
-          'ruff_organize_imports',
-        },
+        python = { 'ruff_format' },
         markdown = { 'prettierd', 'prettier', stop_after_first = true },
         markdown_inline = { 'prettierd', 'prettier', stop_after_first = true },
         toml = { 'taplo' },
